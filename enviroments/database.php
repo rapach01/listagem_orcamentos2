@@ -19,9 +19,9 @@ try {
     // Criação do objeto PDO (conexão com o banco)
     $pdo = new PDO($dsn, $user, $pass, $options);
     // Conexão bem-sucedida
-    echo "Conexão bem-sucedida!";
+    /* echo "Conexão bem-sucedida!"; */
 } catch (PDOException $e) {
     // Em caso de erro, exibe a mensagem
-    echo "Erro ao conectar ao banco de dados: " . $e->getMessage();
+   /*  echo "Erro ao conectar ao banco de dados: " . $e->getMessage(); */
     exit(); // Encerra o script
 }

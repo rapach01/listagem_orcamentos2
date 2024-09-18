@@ -1,7 +1,6 @@
 <?php
 // Inclui a conexão com o banco de dados
 include '../enviroments/database.php';
-include './parts/navbar.php';
 include './parts/sidebar.php';
 // Busca os materiais no banco de dados
 $sql = "SELECT id_material, nome_material FROM materiais";
@@ -11,6 +10,7 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +18,7 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
+    <!--  <style>
         /* Estilos da sidebar e navbar */
         .sidebar {
             height: 100vh;
@@ -154,70 +154,76 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
         .add-material-btn:hover {
             background-color: #0056b3;
         }
-    </style>
+    </style> -->
 
     <script>
-        function addMaterialRow() {
-            const container = document.getElementById('material-container');
-            const materialRow = document.createElement('div');
-            materialRow.classList.add('material-row');
-            materialRow.innerHTML = `
+    function addMaterialRow() {
+        const container = document.getElementById('material-container');
+        const materialRow = document.createElement('div');
+        materialRow.classList.add('material-row');
+        materialRow.innerHTML = `
                 <select name="material[]">
                     <option value="">Selecione o material</option>
                     ${document.getElementById('material-options').innerHTML}
                 </select>
                 <input type="number" name="quantidade[]" placeholder="Quantidade" min="1" required>
             `;
-            container.appendChild(materialRow);
-        }
+        container.appendChild(materialRow);
+    }
     </script>
 
 </head>
+
 <body>
 
-<div class="content">
-    <div class="container">
-        <h2>Cadastro de Estrutura</h2>
-        <form action="../controller/cadastro_estrutura_controller.php" method="POST">
-            
-            <!-- Nome da Estrutura -->
-            <div class="form-group">
-                <label for="nome_estrutura">Nome da Estrutura:</label>
-                <input type="text" id="nome_estrutura" name="nome_estrutura" placeholder="Nome da Estrutura" required>
-            </div>
+    <div class="content">
+        <div class="container">
+            <h2>Cadastro de Estrutura</h2>
+            <form action="../controller/cadastro_estrutura_controller.php" method="POST">
 
-            <!-- Materiais e Quantidades -->
-            <div class="form-group">
-                <label for="materiais">Materiais:</label>
-                <div id="material-container">
-                    <div class="material-row">
-                        <select name="material[]">
-                            <option value="">Selecione o material</option>
-                            <?php foreach($materiais as $material): ?>
-                                <option value="<?= $material['id_material']; ?>"><?= htmlspecialchars($material['nome_material']); ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <input type="number" name="quantidade[]" placeholder="Quantidade" min="1" required>
-                    </div>
+                <!-- Nome da Estrutura -->
+                <div class="form-group">
+                    <label for="nome_estrutura">Nome da Estrutura:</label>
+                    <input type="text" id="nome_estrutura" name="nome_estrutura" placeholder="Nome da Estrutura"
+                        required>
                 </div>
-                <button type="button" class="add-material-btn" onclick="addMaterialRow()">Adicionar Material</button>
-            </div>
 
-            <!-- Botão de Envio -->
-            <input type="submit" value="Cadastrar Estrutura">
-        </form>
+                <!-- Materiais e Quantidades -->
+                <div class="form-group">
+                    <label for="materiais">Materiais:</label>
+                    <div id="material-container">
+                        <div class="material-row">
+                            <select name="material[]">
+                                <option value="">Selecione o material</option>
+                                <?php foreach($materiais as $material): ?>
+                                <option value="<?= $material['id_material']; ?>">
+                                    <?= htmlspecialchars($material['nome_material']); ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <input type="number" name="quantidade[]" placeholder="Quantidade" min="1" required>
+                        </div>
+                    </div>
+                    <button type="button" class="add-material-btn" onclick="addMaterialRow()">Adicionar
+                        Material</button>
+                </div>
+
+                <!-- Botão de Envio -->
+                <input type="submit" value="Cadastrar Estrutura">
+            </form>
+        </div>
     </div>
-</div>
 
-<!-- Hidden div to store material options for use in JavaScript -->
-<div id="material-options" style="display:none;">
-    <?php foreach($materiais as $material): ?>
+    <!-- Hidden div to store material options for use in JavaScript -->
+    <div id="material-options" style="display:none;">
+        <?php foreach($materiais as $material): ?>
         <option value="<?= $material['id_material']; ?>"><?= htmlspecialchars($material['nome_material']); ?></option>
-    <?php endforeach; ?>
-</div>
+        <?php endforeach; ?>
+    </div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
+    </div>
+
 
 </body>
+
 </html>
