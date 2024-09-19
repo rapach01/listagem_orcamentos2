@@ -5,11 +5,14 @@
     <title>Setup</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="shortcut icon" href="http://localhost/listagem_orcamentos/listagem_orcamentos2/assets/images/setup_logo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <link rel="stylesheet" href="http://localhost/listagem_orcamentos/listagem_orcamentos2/assets/css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://localhost/listagem_orcamentos/listagem_orcamentos2/assets/css/styles.css">
+    <!-- bootstrap e fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+
     <script defer src="http://localhost/listagem_orcamentos/listagem_orcamentos2/assets/js/jquery.min.js"></script>
     <script defer src="http://localhost/listagem_orcamentos/listagem_orcamentos2/assets/js/popper.js"></script>
     <script defer src="http://localhost/listagem_orcamentos/listagem_orcamentos2/assets/js/bootstrap.min.js"></script>
@@ -17,13 +20,12 @@
 </head>
 
 <body>
-
     <div class="wrapper d-flex align-items-stretch">
-        <nav id="sidebar" class="active">
-            <h1><a href="index.html" class="logo">Setup</a></h1>
+        <nav id="sidebar" class="active bg-secondary">
+            <h1><a href="index.html" class="logo"></a></h1>
             <ul class="list-unstyled components mb-5">
                 <li class="active">
-                    <a href="http://localhost/listagem_orcamentos/listagem_orcamentos2/view/"><span class="fa fa-money-bills"></span>Gerar Orçamento</a>
+                    <a href="http://localhost/listagem_orcamentos/listagem_orcamentos2/view/criar_orcamento.php"><span class="fa fa-money-bills"></span>Gerar Orçamento</a>
                 </li>
                 <li>
                     <a href="http://localhost/listagem_orcamentos/listagem_orcamentos2/view/cadastro_postes.php"><span class="fa fa-bolt"></span> Postes</a>
@@ -43,9 +45,9 @@
             <div class="footer">
                 <p>
                     Copyright &copy;<script>
-                    document.write(new Date().getFullYear());
-                    </script> All rights reserved | This template is made with <i class="icon-heart"
-                        aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
+                   
+                    </script> Arthur Rapach<i class="icon-heart"
+                        aria-hidden="true"></i> by <a href="https://github.com/rapach01" target="_blank">Github</a>
                 </p>
             </div>
         </nav>
@@ -56,7 +58,7 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
 
-                    <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                    <button type="button" id="sidebarCollapse" class="btn btn-secondary">
                         <i class="fa fa-bars"></i>
                         <span class="sr-only">Toggle Menu</span>
                     </button>

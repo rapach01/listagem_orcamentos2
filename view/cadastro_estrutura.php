@@ -7,223 +7,223 @@ $sql = "SELECT id_material, nome_material FROM materiais";
 $stmt = $pdo->query($sql);
 $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+<style>
+    .list-group-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-<!DOCTYPE html>
-<html lang="pt-BR">
+    .add-material-btn {
+        margin-top: 10px;
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Estrutura</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    .material-row {
+        margin-bottom: 10px;
+    }
+</style>
+<div class="content">
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="pesquisa-tab" data-bs-toggle="tab" data-bs-target="#pesquisa"
+                            type="button" role="tab" aria-controls="pesquisa" aria-selected="true">Pesquisa</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="cadastro-tab" data-bs-toggle="tab" data-bs-target="#cadastro"
+                            type="button" role="tab" aria-controls="cadastro" aria-selected="false">Cadastro</button>
+                    </li>
+                </ul>
 
-    <!--  <style>
-        /* Estilos da sidebar e navbar */
-        .sidebar {
-            height: 100vh;
-            width: 250px;
-            background-color: #343a40;
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding-top: 60px;
-        }
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="pesquisa" role="tabpanel" aria-labelledby="pesquisa-tab">
+                        <h3 class="text-center mt-4">Lista de Estruturas</h3>
+                        <div id="estrutura-list" class="list-group">
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="cadastro" role="tabpanel" aria-labelledby="cadastro-tab">
+                        <h3 class="text-center mt-4">Cadastro de Estrutura</h3>
+                        <form action="../controller/cadastro_estrutura_controller.php" method="POST" id="cadastroForm">
+                            <div class="form-group mb-3">
+                                <label for="nome_estrutura" class="form-label">Nome da Estrutura:</label>
+                                <input type="text" id="nome_estrutura" name="nome_estrutura" class="form-control" placeholder="Nome da Estrutura" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="materiais" class="form-label">Materiais:</label>
+                                <div id="material-container">
+                                    <div class="row mb-2 material-row">
+                                        <div class="col-md-8">
+                                            <select name="material[]" class="form-select">
+                                                <option value="">Selecione o material</option>
+                                                <?php foreach ($materiais as $material): ?>
+                                                    <option value="<?= $material['id_material']; ?>"><?= htmlspecialchars($material['nome_material']); ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="number" name="quantidade[]" class="form-control" placeholder="Quantidade" min="1" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-secondary w-100 mt-3 add-material-btn" onclick="addMaterialRow()">Adicionar Material</button>
+                            </div>
+                            <div class="d-grid">
+                                <input type="submit" value="Cadastrar Estrutura" class="btn btn-dark">
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
-        .sidebar a {
-            color: white;
-            text-decoration: none;
-            padding: 10px;
-            display: block;
-            font-size: 18px;
-        }
+            </div>
+        </div>
+    </div>
+</div>
 
-        .sidebar a:hover {
-            background-color: #495057;
-        }
+<!-- Hidden div to store material options -->
+<div id="material-options" style="display:none;">
+    <?php foreach ($materiais as $material): ?>
+        <option value="<?= $material['id_material']; ?>"><?= htmlspecialchars($material['nome_material']); ?></option>
+    <?php endforeach; ?>
+</div>
 
-        .content {
-            margin-left: 250px;  
-            padding: 20px;
-            padding-top: 60px;
-        }
-
-        /* Responsividade para sidebar */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 100px;
-            }
-
-            .content {
-                margin-left: 100px;
-            }
-
-            .sidebar a {
-                font-size: 14px;
-                padding: 8px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .sidebar {
-                width: 0;
-                display: none;
-            }
-
-            .content {
-                margin-left: 0;
-            }
-        }
-
-        /* Estilos do formulário */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 80%;
-            margin: 50px auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        input[type="text"], input[type="number"], select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-
-        input[type="submit"] {
-            padding: 10px;
-            background-color: #28a745;
-            border: none;
-            color: white;
-            cursor: pointer;
-            width: 100%;
-            border-radius: 5px;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #218838;
-        }
-
-        .material-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .material-row select, .material-row input {
-            width: 48%;
-        }
-
-        .add-material-btn {
-            background-color: #007bff;
-            color: white;
-            padding: 10px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 10px;
-            display: block;
-            width: 100%;
-            text-align: center;
-        }
-
-        .add-material-btn:hover {
-            background-color: #0056b3;
-        }
-    </style> -->
-
-    <script>
+</div>
+</div>
+<script>
     function addMaterialRow() {
         const container = document.getElementById('material-container');
+
         const materialRow = document.createElement('div');
-        materialRow.classList.add('material-row');
+        materialRow.classList.add('row', 'mb-2', 'material-row');
+
         materialRow.innerHTML = `
-                <select name="material[]">
+            <div class="col-md-8">
+                <select name="material[]" class="form-select">
                     <option value="">Selecione o material</option>
                     ${document.getElementById('material-options').innerHTML}
                 </select>
-                <input type="number" name="quantidade[]" placeholder="Quantidade" min="1" required>
-            `;
+            </div>
+            <div class="col-md-4">
+                <input type="number" name="quantidade[]" class="form-control" placeholder="Quantidade" min="1" required>
+            </div>
+        `;
         container.appendChild(materialRow);
     }
-    </script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById('cadastroForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
 
-</head>
+            const formData = new FormData(this); // Coleta os dados do formulário
 
-<body>
+            fetch('http://localhost/listagem_orcamentos/listagem_orcamentos2/controller/cadastro_estrutura_controller.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert(data.message);
+                        loadEstruturas(); // Atualiza a lista de estruturas
+                        this.reset(); // Limpa o formulário
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('Erro ao cadastrar estrutura: ' + error);
+                });
+        });
 
-    <div class="content">
-        <div class="container">
-            <h2>Cadastro de Estrutura</h2>
-            <form action="../controller/cadastro_estrutura_controller.php" method="POST">
+        // Função para carregar as estruturas
+        function loadEstruturas() {
+            const estruturaList = document.getElementById('estrutura-list');
+            estruturaList.innerHTML = ''; // Limpa a lista antes de carregar
 
-                <!-- Nome da Estrutura -->
-                <div class="form-group">
-                    <label for="nome_estrutura">Nome da Estrutura:</label>
-                    <input type="text" id="nome_estrutura" name="nome_estrutura" placeholder="Nome da Estrutura"
-                        required>
-                </div>
-
-                <!-- Materiais e Quantidades -->
-                <div class="form-group">
-                    <label for="materiais">Materiais:</label>
-                    <div id="material-container">
-                        <div class="material-row">
-                            <select name="material[]">
-                                <option value="">Selecione o material</option>
-                                <?php foreach($materiais as $material): ?>
-                                <option value="<?= $material['id_material']; ?>">
-                                    <?= htmlspecialchars($material['nome_material']); ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <input type="number" name="quantidade[]" placeholder="Quantidade" min="1" required>
-                        </div>
+            fetch('http://localhost/listagem_orcamentos/listagem_orcamentos2/controller/cadastro_estrutura_controller.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        data.data.forEach(estrutura => {
+                            const listItem = document.createElement('div');
+                            listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
+                            listItem.innerHTML = `
+                    ${estrutura.descricao_estrutura}
+                    <div>
+                        <button class="btn btn-sm btn-primary me-2" onclick="editEstrutura(${estrutura.id_estrutura})">Editar</button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteEstrutura(${estrutura.id_estrutura})">Excluir</button>
                     </div>
-                    <button type="button" class="add-material-btn" onclick="addMaterialRow()">Adicionar
-                        Material</button>
-                </div>
+                `;
+                            estruturaList.appendChild(listItem);
+                        });
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('Erro ao carregar estruturas: ' + error);
+                });
+        }
 
-                <!-- Botão de Envio -->
-                <input type="submit" value="Cadastrar Estrutura">
-            </form>
-        </div>
-    </div>
+        // Função para editar a estrutura
+        function editEstrutura(id) {
+            fetch(`http://localhost/listagem_orcamentos/listagem_orcamentos2/controller/cadastro_estrutura_controller.php?id=${id}`)
+                .then(response => response.json())
+                .then(estrutura => {
+                    document.getElementById('nome_estrutura').value = estrutura.descricao_estrutura;
+                    // Limpar materiais antigos e preencher os novos
+                    const materialContainer = document.getElementById('material-container');
+                    materialContainer.innerHTML = '';
+                    estrutura.materiais.forEach(material => {
+                        addMaterialRow(material.id_material, material.quantidade); // Assumindo que você tenha essa função
+                    });
+                    // Mudar para a aba de cadastro
+                    var tabTrigger = new bootstrap.Tab(document.querySelector('#cadastro-tab'));
+                    tabTrigger.show();
+                });
+        }
 
-    <!-- Hidden div to store material options for use in JavaScript -->
-    <div id="material-options" style="display:none;">
-        <?php foreach($materiais as $material): ?>
-        <option value="<?= $material['id_material']; ?>"><?= htmlspecialchars($material['nome_material']); ?></option>
-        <?php endforeach; ?>
-    </div>
+        // Função para excluir a estrutura
+        function deleteEstrutura(id) {
+            if (confirm('Tem certeza que deseja excluir esta estrutura?')) {
+                fetch(`http://localhost/listagem_orcamentos/listagem_orcamentos2/controller/cadastro_estrutura_controller.php?id=${id}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => response.json())
+                    .then(result => {
+                        alert(result.message);
+                        loadEstruturas(); // Recarregar a lista após a exclusão
+                    });
+            }
+        }
 
-    </div>
-    </div>
+        // Carregar estruturas ao inicializar
+        loadEstruturas();
+
+        // Carregar a lista ao abrir a aba de pesquisa
+        document.querySelector('#pesquisa-tab').addEventListener('click', loadEstruturas);
+
+        const tabLinks = document.querySelectorAll('.nav-link');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+
+        tabLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                // Remover a classe active de todos os links e panes
+                tabLinks.forEach(item => item.classList.remove('active'));
+                tabPanes.forEach(pane => pane.classList.remove('show', 'active'));
+
+                // Adicionar a classe active ao link clicado
+                this.classList.add('active');
+
+                // Ativar o pane correspondente
+                const targetPane = document.querySelector(this.getAttribute('data-bs-target'));
+                targetPane.classList.add('show', 'active');
+            });
+        });
 
 
+    });
+</script>
 </body>
 
 </html>
