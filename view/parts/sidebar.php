@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -17,6 +17,7 @@
     <script defer src="http://localhost/listagem_orcamentos/listagem_orcamentos2/assets/js/popper.js"></script>
     <script defer src="http://localhost/listagem_orcamentos/listagem_orcamentos2/assets/js/bootstrap.min.js"></script>
     <script defer src="http://localhost/listagem_orcamentos/listagem_orcamentos2/assets/js/main.js"></script>
+
 </head>
 
 <body>
@@ -25,20 +26,17 @@
             <h1><a href="index.html" class="logo"></a></h1>
             <ul class="list-unstyled components mb-5">
                 <li class="active">
-                    <a href="http://localhost/listagem_orcamentos/listagem_orcamentos2/view/criar_orcamento.php"><span class="fa fa-money-bills"></span>Gerar Orçamento</a>
+                    <a href="http://localhost/listagem_orcamentos/listagem_orcamentos2/view/orcamento"><span class="fa fa-money-bills"></span>Gerar Orçamento</a>
                 </li>
                 <li>
-                    <a href="http://localhost/listagem_orcamentos/listagem_orcamentos2/view/cadastro_postes.php"><span class="fa fa-bolt"></span> Postes</a>
+                    <a href="http://localhost/listagem_orcamentos/listagem_orcamentos2/view/postes"><span class="fa fa-bolt"></span> Postes</a>
                 </li>
                 <li>
-                    <a href="http://localhost/listagem_orcamentos/listagem_orcamentos2/view/cadastro_estrutura.php"><span class="fa-solid fa-screwdriver-wrench"></span>Estruturas</a>
+                    <a href="http://localhost/listagem_orcamentos/listagem_orcamentos2/view/estrutura"><span class="fa-solid fa-screwdriver-wrench"></span>Estruturas</a>
                     <i class="bi bi-lightbulb"></i>
                 </li>
                 <li>
-                    <a href="http://localhost/listagem_orcamentos/listagem_orcamentos2/view/cadastro_material.php"><span class="fa fa-cogs"></span>Materiais</a>
-                </li>
-                <li>
-                    <a href="#"><span class="fa fa-paper-plane"></span>Contacts</a>
+                    <a href="http://localhost/listagem_orcamentos/listagem_orcamentos2/view/material"><span class="fa fa-cogs"></span>Materiais</a>
                 </li>
             </ul>
 
@@ -47,7 +45,7 @@
                     Copyright &copy;<script>
                    
                     </script> Arthur Rapach<i class="icon-heart"
-                        aria-hidden="true"></i> by <a href="https://github.com/rapach01" target="_blank">Github</a>
+                        aria-hidden="true"></i> by <a href="https://github.com/rapach01" target="_blank"></a>
                 </p>
             </div>
         </nav>
@@ -62,27 +60,12 @@
                         <i class="fa fa-bars"></i>
                         <span class="sr-only">Toggle Menu</span>
                     </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+                    <!-- <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fa fa-bars"></i>
-                    </button>
+                    </button> -->
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Portfolio</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Contact</a>
-                            </li>
-                        </ul>
-                    </div>
+                 
                 </div>
             </nav>

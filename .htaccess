@@ -1,0 +1,7 @@
+# Liga o motor de reescrita de URLs
+RewriteEngine On
+
+# Verifica se o arquivo ou diretório existe, se não, redireciona para o index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
