@@ -49,6 +49,7 @@ if (array_key_exists($lastSegment, $routes)) {
 
 // Verifica se a rota existe no array de rotas para controladores
 if (array_key_exists($lastSegment, $controllerRoutes)) {
+    require_once __DIR__ . '/vendor/autoload.php'; 
     include 'enviroments/database.php'; // Inclusão do banco de dados, se necessário
     include 'controller/' . $controllerRoutes[$lastSegment];
     $routeFound = true; // Rota de controlador encontrada

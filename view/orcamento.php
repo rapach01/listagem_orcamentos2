@@ -149,11 +149,16 @@
                         </tr>
                     </tbody>
                 </table>
-                <button type="button" class="btn btn-secondary" id="addRow">Adicionar Poste e Estruturas</button>
+                <div class="d-flex justify-content-end mt-2">
+                    <button type="button" class="btn btn-secondary" id="addRow" alt="Adicionar Poste e Estruturas">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
 
-                <!-- Enviar o formulário -->
-                <div class="d-grid mt-3">
-                    <input type="submit" class="btn btn-primary" value="Listar Seleção">
+                <div class="d-flex justify-content-end mt-2">
+                    <button type="submit" class="btn btn-primary" alt="Listar Seleção">
+                        <i class="fas fa-list"></i>
+                    </button>
                 </div>
             </form>
         </div>
@@ -173,8 +178,19 @@
                     </tr>
                 </thead>
                 <tbody id="materiais-table">
-                    <!-- As linhas dos materiais serão adicionadas aqui dinamicamente -->
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" class="text-right">
+                            <button type="button" class="btn btn-secondary btn-lg me-md-2" id="xlsx" alt=" Gerar XLSX">
+                                <i class="fas fa-file-csv" alt="Gerar XLSX"></i>
+                            </button>
+                            <button type="button" class="btn btn-dark btn-lg me-md-2 ml-3" id="pdf" alt="Gerar PDF">
+                                <i class="fas fa-file-pdf" alt="Gerar PDF"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
@@ -359,7 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (postesCombinados[tipoPoste]) {
                         // Se o poste já existe, soma
                         postesCombinados[tipoPoste].quantidade +=
-                        1; // Soma a quantidade de postes
+                            1; // Soma a quantidade de postes
                     } else {
                         // Caso contrário, cria uma nova entrada
                         postesCombinados[tipoPoste] = {
@@ -388,6 +404,49 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
                     materiaisTable.appendChild(row);
                 });
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    });
+
+    document.getElementById('xlsx').addEventListener('click', function(e) {
+        e.preventDefault();
+
+        // Coletar os dados da tabela
+        const materiais = [];
+        const rows = document.querySelectorAll('#materiais-table tr');
+
+        rows.forEach(row => {
+            const nomeMaterial = row.cells[0].textContent.trim();
+            const quantidade = row.cells[1].textContent.trim();
+            if (nomeMaterial && quantidade) {
+                materiais.push({
+                    nome: nomeMaterial,
+                    quantidade: quantidade
+                });
+            }
+        });
+
+        // Converter os dados para JSON
+        const dados = {
+            action: 'xlsx',
+            materiais: materiais
+        };
+
+        console.log(dados); // Para depuração
+
+        fetch('orcamento_controller', {
+                method: 'POST',
+                body: JSON.stringify(dados),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Processar a resposta do servidor aqui
+                console.log(data);
             })
             .catch(error => {
                 console.error(error);
