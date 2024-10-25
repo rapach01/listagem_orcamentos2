@@ -42,13 +42,13 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <!-- Altura do Poste -->
                             <div class="mb-3">
                                 <label for="altura" class="form-label">Altura do Poste (em metros):</label>
-                                <input type="number" class="form-control" id="altura" name="altura" required>
+                                <input type="number" class="form-control" id="altura" name="altura" >
                             </div>
 
                             <!-- Tipo do Poste -->
                             <div class="mb-3">
                                 <label for="tipo" class="form-label">Tipo:</label>
-                                <input type="number" class="form-control" id="tipo" name="tipo" required>
+                                <input type="text" class="form-control" id="tipo" name="tipo" required>
                             </div>
 
                             <!-- Nível 1 Parafuso -->
