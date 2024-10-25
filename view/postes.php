@@ -25,18 +25,18 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="pesquisa" role="tabpanel" aria-labelledby="pesquisa-tab">
-
-                        <div id="postes-list" class="list-group">
-                        </div>
+                        <div id="postes-list" class="list-group"></div>
                     </div>
+
                     <div class="tab-pane fade" id="cadastro" role="tabpanel" aria-labelledby="cadastro-tab">
                         <form action="postes_controller" method="POST" id="cadastroForm">
                             <input type="hidden" name="action" value="cadastrar">
                             <input type="hidden" id="id_poste" name="id_poste" value="">
-                            <!-- Código do Poste -->
+
+                            <!-- Nome do Poste -->
                             <div class="mb-3">
-                                <label for="nome" class="form-label">Nome do Poste:</label>
-                                <input type="text" class="form-control" id="nome" name="nome" required>
+                                <label for="codigo" class="form-label">Nome do Poste:</label>
+                                <input type="text" class="form-control" id="codigo" name="codigo" required>
                             </div>
 
                             <!-- Altura do Poste -->
@@ -44,6 +44,7 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <label for="altura" class="form-label">Altura do Poste (em metros):</label>
                                 <input type="number" class="form-control" id="altura" name="altura" required>
                             </div>
+
                             <!-- Tipo do Poste -->
                             <div class="mb-3">
                                 <label for="tipo" class="form-label">Tipo:</label>
@@ -74,9 +75,14 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </select>
                             </div>
 
-                            <!-- Botão de Envio -->
-                            <div class="d-grid">
-                                <input type="submit" class="btn btn-secondary" value="Cadastrar Poste">
+                            <!-- Botões -->
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+                                <button type="reset" class="btn btn-secondary btn-lg me-md-2">
+                                    <i class="fas fa-eraser" alt="Limpar"></i> <!-- Ícone de reset -->
+                                </button>
+                                <button type="submit" class="btn btn-dark btn-lg ms-md-2 ml-3">
+                                    <i class="fas fa-save" alt="Cadastrar Poste"></i> <!-- Ícone de cadastro -->
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -86,12 +92,12 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 </div>
-
 </body>
+
 </html>
 
 <script>
-       document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('cadastroForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Impede o envio padrão do formulário
 
@@ -153,11 +159,16 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         listItem.innerHTML = `
                     ${postes.codigo}
                     <div>
-                        <button class="btn btn-sm btn-primary me-2" onclick="editPoste(${postes.id})">Editar</button>
-                        <button class="btn btn-sm btn-danger" onclick="deletePoste(${postes.id})">Excluir</button>
+                        <button class="btn btn-sm btn-primary me-2" onclick="editPoste(${postes.id_poste})">
+                            <i class="fas fa-edit" alt="Editar"></i> 
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deletePoste(${postes.id_poste})">
+                            <i class="fas fa-times" alt="Excluir"></i> 
+                        </button>
                     </div>
+
                 `;
-                postesList.appendChild(listItem);
+                        postesList.appendChild(listItem);
                     });
                 } else {
                     alert(data.message);

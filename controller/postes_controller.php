@@ -106,7 +106,7 @@ switch ($action) {
 
         try {
             // Busca a estrutura no banco de dados
-            $sql_estrutura = "SELECT * FROM postes WHERE id = :id_poste";
+            $sql_estrutura = "SELECT * FROM postes WHERE id_poste = :id_poste";
             $stmt = $pdo->prepare($sql_estrutura);
             $stmt->execute(['id_poste' => $id_poste]);
             $postes = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -138,7 +138,7 @@ switch ($action) {
 
         try {
             // Remover a estrutura
-            $sql = "DELETE FROM postes WHERE id = :id_poste";
+            $sql = "DELETE FROM postes WHERE id_poste = :id_poste";
             $stmt = $pdo->prepare($sql);
             $stmt->execute(['id_poste' => $id_poste]);
 
@@ -155,5 +155,7 @@ switch ($action) {
         $response['message'] = 'Ação inválida.';
         break;
 }
-
-echo json_encode($response);
+if(!empty($response)){
+    echo json_encode($response);
+    exit;
+}

@@ -98,49 +98,94 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="pesquisa" role="tabpanel" aria-labelledby="pesquisa-tab">
-
-                        <div id="estrutura-list" class="list-group">
-                        </div>
+                        <div id="estrutura-list" class="list-group"></div>
                     </div>
                     <div class="tab-pane fade" id="cadastro" role="tabpanel" aria-labelledby="cadastro-tab">
                         <form action="estrutura_controller" method="POST" id="cadastroForm">
                             <input type="hidden" name="action" value="cadastrar">
                             <input type="hidden" id="id_estrutura" name="id_estrutura" value="">
+
                             <div class="form-group mb-3">
                                 <label for="nome_estrutura" class="form-label">Nome da Estrutura:</label>
                                 <input type="text" id="nome_estrutura" name="nome_estrutura" class="form-control" placeholder="Nome da Estrutura" required>
                             </div>
+                            <button type="button" class="btn btn-md btn-secondary mt-3 add-material-btn text-right" alt="Adicionar Material" onclick="addMaterialRow()">
+                                <i class="fas fa-plus"></i>
+                            </button>
                             <div class="form-group mb-3">
                                 <label for="materiais" class="form-label">Materiais:</label>
                                 <div id="material-container">
                                     <div class="row mb-2 material-row">
                                         <div class="col-md-8">
-                                            <select name="material[]" class="form-select">
+                                            <select name="material[]" class="form-select" required>
                                                 <option value="">Selecione o material</option>
                                                 <?php foreach ($materiais as $material): ?>
                                                     <option value="<?= $material['id_material']; ?>"><?= htmlspecialchars($material['nome_material']); ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <input type="number" name="quantidade[]" class="form-control" placeholder="Quantidade" min="1" required>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="removeMaterialRow(this)">
+                                                <i class="fas fa-times" alt="Remover"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-secondary w-100 mt-3 add-material-btn" onclick="addMaterialRow()">Adicionar Material</button>
+
                             </div>
-                            <div class="d-grid">
-                                <input type="submit" value="Cadastrar Estrutura" class="btn btn-dark">
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+                                <button type="reset" class="btn btn-secondary btn-lg me-md-2">
+                                    <i class="fas fa-eraser" alt="Limpar"></i>
+                                </button>
+                                <button type="submit" class="btn btn-dark btn-lg ms-md-2 ml-3">
+                                    <i class="fas fa-save" alt="Cadastrar estrutura"></i>
+                                </button>
                             </div>
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 </div>
 
+<script>
+    function addMaterialRow(materialId = '', quantidade = '') {
+        const materialContainer = document.getElementById('material-container');
+        const materialRow = document.createElement('div');
+        materialRow.classList.add('row', 'mb-2', 'material-row');
+        materialRow.innerHTML = `
+        <div class="col-md-8">
+            <select name="material[]" class="form-select" required>
+                <option value="">Selecione o material</option>
+                ${materiais.map(material => `
+                    <option value="${material.id_material}" ${materialId == material.id_material ? 'selected' : ''}>
+                        ${material.nome_material}
+                    </option>
+                `).join('')}
+            </select>
+        </div>
+        <div class="col-md-3">
+            <input type="number" name="quantidade[]" class="form-control" placeholder="Quantidade" min="1" value="${quantidade}" required>
+        </div>
+        <div class="col-md-1">
+            <button type="button" class="btn btn-danger btn-sm" onclick="removeMaterialRow(this)">
+                <i class="fas fa-times" alt="Remover"></i>
+            </button>
+        </div>
+    `;
+        materialContainer.appendChild(materialRow);
+    }
+
+    function removeMaterialRow(button) {
+        const row = button.closest('.material-row');
+        row.remove();
+    }
+</script>
 <!-- Hidden div to store material options -->
 <div id="material-options" style="display:none;">
     <?php foreach ($materiais as $material): ?>
@@ -154,25 +199,36 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
     // Função para adicionar uma linha de material
     function addMaterialRow(materialId = '', quantidade = '') {
         const materialContainer = document.getElementById('material-container');
-        const materialRow = `
-        <div class="row mb-2 material-row">
-            <div class="col-md-8">
-                <select name="material[]" class="form-select" required>
-                    <option value="">Selecione o material</option>
-                    ${materiais.map(material => `
-                        <option value="${material.id_material}" ${materialId == material.id_material ? 'selected' : ''}>
-                            ${material.nome_material}
-                        </option>
-                    `).join('')}
-                </select>
-            </div>
-            <div class="col-md-4">
-                <input type="number" name="quantidade[]" class="form-control" placeholder="Quantidade" min="1" value="${quantidade}" required>
-            </div>
+        const materialRow = document.createElement('div');
+        materialRow.classList.add('row', 'mb-2', 'material-row');
+        materialRow.innerHTML = `
+        <div class="col-md-8">
+            <select name="material[]" class="form-select" required>
+                <option value="">Selecione o material</option>
+                ${materiais.map(material => `
+                    <option value="${material.id_material}" ${materialId == material.id_material ? 'selected' : ''}>
+                        ${material.nome_material}
+                    </option>
+                `).join('')}
+            </select>
+        </div>
+        <div class="col-md-3">
+            <input type="number" name="quantidade[]" class="form-control" placeholder="Quantidade" min="1" value="${quantidade}" required>
+        </div>
+        <div class="col-md-1">
+            <button type="button" class="btn btn-danger btn-sm" onclick="removeMaterialRow(this)">
+                <i class="fas fa-times" alt="Remover"></i>
+            </button>
         </div>
     `;
-        materialContainer.insertAdjacentHTML('beforeend', materialRow);
+        materialContainer.appendChild(materialRow);
     }
+
+    function removeMaterialRow(button) {
+        const row = button.closest('.material-row');
+        row.remove();
+    }
+
     const materiais = <?= json_encode($materiais); ?>;
     document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('cadastroForm').addEventListener('submit', function(event) {
@@ -238,9 +294,14 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         listItem.innerHTML = `
                     ${estrutura.descricao_estrutura}
                     <div>
-                        <button class="btn btn-sm btn-primary me-2" onclick="editEstrutura(${estrutura.id_estrutura})">Editar</button>
-                        <button class="btn btn-sm btn-danger" onclick="deleteEstrutura(${estrutura.id_estrutura})">Excluir</button>
+                        <button class="btn btn-sm btn-primary me-2" onclick="editEstrutura(${estrutura.id_estrutura})">
+                            <i class="fas fa-edit" alt="Editar"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteEstrutura(${estrutura.id_estrutura})">
+                            <i class="fas fa-times" alt="Excluir"></i>
+                        </button>
                     </div>
+
                 `;
                         estruturaList.appendChild(listItem);
                     });

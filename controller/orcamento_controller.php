@@ -79,11 +79,9 @@ $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : null;
 $response = array();
 if (!empty($action)) {
     switch ($action) {
-        
-
         case 'buscarPostes':
             $id = $_REQUEST['id'];
-            $sql = "SELECT parafuso_nivel_1, parafuso_nivel_2 FROM postes WHERE id = $id";
+            $sql = "SELECT parafuso_nivel_1, parafuso_nivel_2 FROM postes WHERE id_poste = $id";
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
             $postes = $stmt->fetchAll(PDO::FETCH_ASSOC);

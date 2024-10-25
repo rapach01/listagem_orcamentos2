@@ -36,8 +36,13 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <label for="nome_material" class="form-label">Nome do material</label>
                                 <input type="text" id="nome_material" name="nome_material" class="form-control" placeholder="Nome" required>
                             </div>
-                            <div class="d-grid">
-                                <input type="submit" value="Cadastrar materiais" class="btn btn-dark">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+                                <button type="reset" class="btn btn-secondary btn-lg me-md-2">
+                                    <i class="fas fa-eraser" alt="Limpar"></i>
+                                </button>
+                                <button type="submit" class="btn btn-dark btn-lg ms-md-2 ml-3">
+                                    <i class="fas fa-save" alt="Cadastrar material"></i>
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -111,8 +116,8 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         listItem.innerHTML = `
                     ${materiais.nome_material}
                     <div>
-                        <button class="btn btn-sm btn-primary me-2" onclick="editMaterial(${materiais.id_material})">Editar</button>
-                        <button class="btn btn-sm btn-danger" onclick="deleteMaterial(${materiais.id_material})">Excluir</button>
+                        <button class="btn btn-sm btn-primary me-2" onclick="editMaterial(${materiais.id_material})">  <i class="fas fa-edit" alt="Editar"></i></button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteMaterial(${materiais.id_material})"><i class="fas fa-times" alt="Excluir"></i></button>
                     </div>
                 `;
                 materiaisList.appendChild(listItem);

@@ -1,22 +1,35 @@
 <style>
     .result-container {
-        background-color: #f8f9fa;
-        /* Cor de fundo suave */
-        border: 1px solid #dee2e6;
-        /* Borda clara */
-        border-radius: 0.5rem;
-        /* Bordas arredondadas */
-        padding: 20px;
-        /* Espaçamento interno */
-        margin-top: 1rem;
-        /* Espaçamento acima */
+        background-color: #f8f9fa; /* Cor de fundo suave */
+        border: 1px solid #dee2e6; /* Borda clara */
+        border-radius: 0.5rem; /* Bordas arredondadas */
+        padding: 20px; /* Espaçamento interno */
+        margin-top: 1rem; /* Espaçamento acima */
     }
 
     .list-group-item {
-        font-size: 1.1rem;
-        /* Aumenta a fonte */
+        font-size: 1.1rem; /* Aumenta a fonte */
+    }
+
+    .table th {
+        background-color: #007bff; /* Cor de fundo do cabeçalho */
+        color: white; /* Cor do texto do cabeçalho */
+        text-align: center; /* Centraliza o texto */
+    }
+
+    .table td {
+        vertical-align: middle; /* Alinha o conteúdo verticalmente ao centro */
+    }
+
+    .btn-danger {
+        margin-top: 5px; /* Adiciona um pouco de espaço acima do botão de remover */
+    }
+
+    #addRow {
+        margin-top: 1rem; /* Espaçamento acima do botão de adicionar */
     }
 </style>
+
 <div class="container mt-5">
     <div class="card shadow">
         <div class="card-header">
@@ -47,7 +60,7 @@
                                     $stmt = $pdo->prepare($sql);
                                     $stmt->execute();
                                     foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $poste) {
-                                        echo "<option value='{$poste['id']}'>{$poste['codigo']}</option>";
+                                        echo "<option value='{$poste['id_poste']}'>{$poste['codigo']}</option>";
                                     }
                                     ?>
                                 </select>
@@ -67,7 +80,7 @@
                                 </select>
                             </td>
                             <td>
-                                <input type="number" readonly id="parafuso_nivel_1" placeholder="Tam. Parafuso">
+                                <input type="number" readonly id="parafuso_nivel_1" placeholder="Tam. Parafuso" class="form-control">
                             </td>
                             <td>
                                 <select name="estruturas2[]" class="form-select">
@@ -84,7 +97,7 @@
                                 </select>
                             </td>
                             <td>
-                                <input type="number" readonly id="parafuso_nivel_2" placeholder="Tam. Parafuso">
+                                <input type="number" readonly id="parafuso_nivel_2" placeholder="Tam. Parafuso" class="form-control">
                             </td>
                             <td>
                                 <button type="button" class="btn btn-danger removeRow">Remover</button>
@@ -109,6 +122,7 @@
     </div>
 </div>
 
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('addRow').addEventListener('click', function() {
@@ -124,7 +138,7 @@
                             $stmt = $pdo->prepare($sql);
                             $stmt->execute();
                             foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $poste) {
-                                echo "<option value='{$poste['id']}'>{$poste['codigo']}</option>";
+                                echo "<option value='{$poste['id_poste']}'>{$poste['codigo']}</option>";
                             }
                             ?>
                         </select>
@@ -185,7 +199,7 @@
                         action: 'buscarPostes' // Adiciona a ação
                     });
 
-                    fetch('seu_script_aqui.php', { // Substitua pela URL do seu script
+                    fetch('orcamento_controller', { // Substitua pela URL do seu script
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'

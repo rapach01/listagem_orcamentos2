@@ -20,7 +20,7 @@ $controllerRoutes = [
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 // Caminho base do projeto
-$basePath = '/listagem_orcamentos/listagem_orcamentos2';
+$basePath = '/listagem_orcamentos2';
 
 // Remove o caminho base da URL para lidar com as rotas corretamente
 $relativePath = str_replace($basePath, '', $path);
