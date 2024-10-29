@@ -1,79 +1,74 @@
 <style>
-.form-select {
-    background-color: #f8f9fa;
-    /* Cor de fundo leve */
-    border: 1px solid #ced4da;
-    /* Borda leve */
-    border-radius: 4px;
-    /* Borda arredondada */
-    padding: 8px 12px;
-    /* Espaçamento interno */
-    font-size: 14px;
-    /* Tamanho da fonte */
-    color: #495057;
-    /* Cor do texto */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    /* Efeito de transição */
-    width: 100%;
-}
+    .form-select {
+        background-color: #f8f9fa;
+        /* Cor de fundo leve */
+        border: 1px solid #ced4da;
+        /* Borda leve */
+        border-radius: 4px;
+        /* Borda arredondada */
+        padding: 8px 12px;
+        /* Espaçamento interno */
+        font-size: 14px;
+        /* Tamanho da fonte */
+        color: #495057;
+        /* Cor do texto */
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        /* Efeito de transição */
+        width: 100%;
+    }
 
-.form-select:focus {
-    border-color: #007bff;
-    /* Cor da borda ao focar */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    /* Sombra leve ao focar */
-    outline: none;
-    /* Remove o contorno padrão */
-}
+    .form-select:focus {
+        border-color: #007bff;
+        /* Cor da borda ao focar */
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        /* Sombra leve ao focar */
+        outline: none;
+        /* Remove o contorno padrão */
+    }
 
-.form-select option {
-    color: #495057;
-    /* Cor das opções */
-    background-color: #fff;
-    /* Cor de fundo das opções */
-}
+    .form-select option {
+        color: #495057;
+        /* Cor das opções */
+        background-color: #fff;
+        /* Cor de fundo das opções */
+    }
 
-.result-container {
-    background-color: #f8f9fa;
-    /* Cor de fundo suave */
-    border: 1px solid #dee2e6;
-    /* Borda clara */
-    border-radius: 0.5rem;
-    /* Bordas arredondadas */
-    padding: 20px;
-    /* Espaçamento interno */
-    margin-top: 1rem;
-    /* Espaçamento acima */
-}
+    .result-container {
+        background-color: #f8f9fa;
+        /* Cor de fundo suave */
+        border: 1px solid #dee2e6;
+        /* Borda clara */
+        border-radius: 0.5rem;
+        /* Bordas arredondadas */
+        padding: 20px;
+        /* Espaçamento interno */
+        margin-top: 1rem;
+        /* Espaçamento acima */
+    }
 
-.list-group-item {
-    font-size: 1.1rem;
-    /* Aumenta a fonte */
-}
+    .list-group-item {
+        font-size: 1.1rem;
+        /* Aumenta a fonte */
+    }
 
-.table th {
-    background-color: #007bff;
-    /* Cor de fundo do cabeçalho */
-    color: white;
-    /* Cor do texto do cabeçalho */
-    text-align: center;
-    /* Centraliza o texto */
-}
+    .table th {
+        background-color: #009A72;
+        /* Cor de fundo do cabeçalho */
+        color: white;
+        /* Cor do texto do cabeçalho */
+        text-align: center;
+        /* Centraliza o texto */
+    }
 
-.table td {
-    vertical-align: middle;
-    /* Alinha o conteúdo verticalmente ao centro */
-}
+    .table td {
+        vertical-align: middle;
+        /* Alinha o conteúdo verticalmente ao centro */
+    }
 
-.btn-danger {
-    margin-top: 5px;
-    /* Adiciona um pouco de espaço acima do botão de remover */
-}
-
-#addRow {
-    margin-top: 1rem;
-    /* Espaçamento acima do botão de adicionar */
-}
+    #addRow {
+        margin-top: 1rem;
+        /* Espaçamento acima do botão de adicionar */
+    }
 </style>
 
 <div class="container mt-5">
@@ -99,14 +94,14 @@
                             <td>
                                 <select name="postes[0]" class="form-select posteSelect" id="posteSelect">
                                     <option value="" disabled selected>Selecione um poste</option>
-                                    <?= 
-                                         // Listar os postes disponíveis
-                                        $sql = "SELECT * FROM postes";
-                                        $stmt = $pdo->prepare($sql);
-                                        $stmt->execute();
-                                        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $poste) {
-                                            echo "<option value='{$poste['id_poste']}'>{$poste['codigo']}</option>";
-                                        }
+                                    <?=
+                                    // Listar os postes disponíveis
+                                    $sql = "SELECT * FROM postes";
+                                    $stmt = $pdo->prepare($sql);
+                                    $stmt->execute();
+                                    foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $poste) {
+                                        echo "<option value='{$poste['id_poste']}'>{$poste['codigo']}</option>";
+                                    }
                                     ?>
                                 </select>
                             </td>
@@ -114,13 +109,13 @@
                                 <select name="estruturas1[0]" class="form-select estruturaSelect">
                                     <option value="" disabled selected>Selecione a estrutura 1</option>
                                     <?php
-                                        // Listar as estruturas disponíveis
-                                        $sql = "SELECT * FROM estruturas";
-                                        $stmt = $pdo->prepare($sql);
-                                        $stmt->execute();
-                                        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $estrutura) {
-                                            echo "<option value='{$estrutura['id_estrutura']}'>{$estrutura['descricao_estrutura']}</option>";
-                                        }
+                                    // Listar as estruturas disponíveis
+                                    $sql = "SELECT * FROM estruturas";
+                                    $stmt = $pdo->prepare($sql);
+                                    $stmt->execute();
+                                    foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $estrutura) {
+                                        echo "<option value='{$estrutura['id_estrutura']}'>{$estrutura['descricao_estrutura']}</option>";
+                                    }
                                     ?>
                                 </select>
                             </td>
@@ -132,13 +127,13 @@
                                 <select name="estruturas2[]" class="form-select estruturaSelect">
                                     <option value="" disabled selected>Selecione a estrutura 2</option>
                                     <?php
-                                        // Listar as estruturas disponíveis
-                                        $sql = "SELECT * FROM estruturas";
-                                        $stmt = $pdo->prepare($sql);
-                                        $stmt->execute();
-                                        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $estrutura) {
-                                            echo "<option value='{$estrutura['id_estrutura']}'>{$estrutura['descricao_estrutura']}</option>";
-                                        }
+                                    // Listar as estruturas disponíveis
+                                    $sql = "SELECT * FROM estruturas";
+                                    $stmt = $pdo->prepare($sql);
+                                    $stmt->execute();
+                                    foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $estrutura) {
+                                        echo "<option value='{$estrutura['id_estrutura']}'>{$estrutura['descricao_estrutura']}</option>";
+                                    }
                                     ?>
                                 </select>
                             </td>
@@ -150,13 +145,13 @@
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-end mt-2">
-                    <button type="button" class="btn btn-secondary" id="addRow" alt="Adicionar Poste e Estruturas">
+                    <button type="button" class="btn btn-secondary" id="addRow" title="Adicionar Poste e Estruturas">
                         <i class="fas fa-plus"></i>
                     </button>
                 </div>
 
                 <div class="d-flex justify-content-end mt-2">
-                    <button type="submit" class="btn btn-primary" alt="Listar Seleção">
+                    <button type="submit" class="btn btn-primary" title="Listar Seleção">
                         <i class="fas fa-list"></i>
                     </button>
                 </div>
@@ -182,11 +177,11 @@
                 <tfoot>
                     <tr>
                         <td colspan="2" class="text-right">
-                            <button type="button" class="btn btn-secondary btn-lg me-md-2" id="xlsx" alt=" Gerar XLSX">
-                                <i class="fas fa-file-csv" alt="Gerar XLSX"></i>
+                            <button type="button" class="btn btn-success btn-lg me-md-2" id="xlsx" title=" Gerar XLSX">
+                                <i class="fas fa-file-csv" title="Gerar XLSX"></i>
                             </button>
-                            <button type="button" class="btn btn-dark btn-lg me-md-2 ml-3" id="pdf" alt="Gerar PDF">
-                                <i class="fas fa-file-pdf" alt="Gerar PDF"></i>
+                            <button type="button" class="btn btn-danger btn-lg me-md-2 ml-3" id="pdf" title="Gerar PDF">
+                                <i class="fas fa-file-pdf" title="Gerar PDF"></i>
                             </button>
                         </td>
                     </tr>
@@ -198,25 +193,24 @@
 
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    let rowCount = 1; // Variável para contar o número de linhas
+    document.addEventListener('DOMContentLoaded', function() {
+        let rowCount = 1;
 
-    document.getElementById('addRow').addEventListener('click', function() {
-        const tableBody = document.getElementById('poste-estrutura-table');
-        const newRow = document.createElement('tr');
+        document.getElementById('addRow').addEventListener('click', function() {
+            const tableBody = document.getElementById('poste-estrutura-table');
+            const newRow = document.createElement('tr');
 
-        // Cria uma nova linha com o índice atual
-        newRow.innerHTML = `
+            newRow.innerHTML = `
             <td>
                 <select name="postes[${rowCount}]" class="form-select posteSelect">
                     <option value="" disabled selected>Selecione um poste</option>
                     <?php
-                        $sql = "SELECT * FROM postes";
-                        $stmt = $pdo->prepare($sql);
-                        $stmt->execute();
-                        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $poste) {
-                            echo "<option value='{$poste['id_poste']}'>{$poste['codigo']}</option>";
-                        }
+                    $sql = "SELECT * FROM postes";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute();
+                    foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $poste) {
+                        echo "<option value='{$poste['id_poste']}'>{$poste['codigo']}</option>";
+                    }
                     ?>
                 </select>
             </td>
@@ -224,12 +218,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 <select name="estruturas1[${rowCount}]" class="form-select estruturaSelect">
                     <option value="" disabled selected>Selecione a estrutura 1</option>
                     <?php
-                        $sql = "SELECT * FROM estruturas";
-                        $stmt = $pdo->prepare($sql);
-                        $stmt->execute();
-                        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $estrutura) {
-                            echo "<option value='{$estrutura['id_estrutura']}'>{$estrutura['descricao_estrutura']}</option>";
-                        }
+                    $sql = "SELECT * FROM estruturas";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute();
+                    foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $estrutura) {
+                        echo "<option value='{$estrutura['id_estrutura']}'>{$estrutura['descricao_estrutura']}</option>";
+                    }
                     ?>
                 </select>
             </td>
@@ -240,12 +234,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 <select name="estruturas2[${rowCount}]" class="form-select estruturaSelect">
                     <option value="" disabled selected>Selecione a estrutura 2</option>
                     <?php
-                        $sql = "SELECT * FROM estruturas";
-                        $stmt = $pdo->prepare($sql);
-                        $stmt->execute();
-                        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $estrutura) {
-                            echo "<option value='{$estrutura['id_estrutura']}'>{$estrutura['descricao_estrutura']}</option>";
-                        }
+                    $sql = "SELECT * FROM estruturas";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute();
+                    foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $estrutura) {
+                        echo "<option value='{$estrutura['id_estrutura']}'>{$estrutura['descricao_estrutura']}</option>";
+                    }
                     ?>
                 </select>
             </td>
@@ -257,246 +251,221 @@ document.addEventListener('DOMContentLoaded', function() {
             </td>
         `;
 
-        tableBody.appendChild(newRow);
+            tableBody.appendChild(newRow);
 
-        // Adiciona evento para remover a linha
-        newRow.querySelector('.removeRow').addEventListener('click', function() {
-            tableBody.removeChild(newRow);
-            rowCount--; // Decrementa a contagem de linhas
-        });
+            newRow.querySelector('.removeRow').addEventListener('click', function() {
+                tableBody.removeChild(newRow);
+                rowCount--;
+            });
 
-        // Adiciona evento para o select do poste na nova linha
-        newRow.querySelector('.posteSelect').addEventListener('change', function() {
-            const posteId = this.value;
-            const row = this.closest('tr');
+            newRow.querySelector('.posteSelect').addEventListener('change', function() {
+                const posteId = this.value;
+                const row = this.closest('tr');
 
-            if (posteId) {
-                const data = new URLSearchParams({
-                    id: posteId,
-                    action: 'buscarPostes'
-                });
+                if (posteId) {
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'orcamento_controller', true);
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-                fetch('orcamento_controller', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: data.toString()
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok ' + response
-                                .statusText);
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        if (data.postes.length > 0) {
-                            row.querySelector('.parafuso-nivel-1').value = data.postes[0]
-                                .parafuso_nivel_1 || '';
-                            row.querySelector('.parafuso-nivel-2').value = data.postes[0]
-                                .parafuso_nivel_2 || '';
-                        } else {
-                            row.querySelector('.parafuso-nivel-1').value = '';
-                            row.querySelector('.parafuso-nivel-2').value = '';
-                        }
-                    })
-                    .catch(error => {
-                        console.error('There was a problem with the fetch operation:',
-                            error);
-                    });
-            } else {
-                row.querySelector('.parafuso-nivel-1').value = '';
-                row.querySelector('.parafuso-nivel-2').value = '';
-            }
-        });
-
-        rowCount++; // Incrementa a contagem de linhas após adicionar a nova linha
-    });
-
-
-    document.getElementById('postForm').addEventListener('submit', function(e) {
-        e.preventDefault(); // Impede o envio padrão do formulário
-        var formData = new FormData(this);
-
-        var dados = new URLSearchParams(formData).toString() + "&action=listar";
-        console.log(dados); // Para depuração
-
-        fetch('orcamento_controller', {
-                method: 'POST',
-                body: dados,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                const materiaisTable = document.getElementById('materiais-table');
-                materiaisTable.innerHTML = '';
-
-                // Objeto para armazenar materiais e postes combinados
-                const materiaisCombinados = {};
-                const postesCombinados = {};
-
-                // Itera sobre cada linha do response e agrega os materiais e postes
-                data.data.forEach(item => {
-                    // Função para agregar materiais de cada estrutura
-                    const agregarMateriais = (materiais) => {
-                        materiais.forEach(material => {
-                            let nomeMaterial = material.nome_material;
-
-                            if (nomeMaterial.toLowerCase() === 'parafuso') {
-                                // Concatena com o nível para os parafusos
-                                nomeMaterial +=
-                                    ` Nível ${item.parafuso_nivel_1 || item.parafuso_nivel_2}`;
-                            }
-
-                            if (materiaisCombinados[nomeMaterial]) {
-                                // Se o material já existe, soma a quantidade
-                                materiaisCombinados[nomeMaterial].quantidade +=
-                                    material.quantidade;
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                            if (xhr.status === 200) {
+                                const data = JSON.parse(xhr.responseText);
+                                if (data.postes.length > 0) {
+                                    row.querySelector('.parafuso-nivel-1').value = data.postes[0].parafuso_nivel_1 || '';
+                                    row.querySelector('.parafuso-nivel-2').value = data.postes[0].parafuso_nivel_2 || '';
+                                } else {
+                                    row.querySelector('.parafuso-nivel-1').value = '';
+                                    row.querySelector('.parafuso-nivel-2').value = '';
+                                }
                             } else {
-                                // Caso contrário, cria uma nova entrada
-                                materiaisCombinados[nomeMaterial] = {
-                                    nome_material: nomeMaterial,
-                                    quantidade: material.quantidade
+                                console.error('There was a problem with the request.');
+                            }
+                        }
+                    };
+                    xhr.send(`id=${posteId}&action=buscarPostes`);
+                } else {
+                    row.querySelector('.parafuso-nivel-1').value = '';
+                    row.querySelector('.parafuso-nivel-2').value = '';
+                }
+            });
+
+            rowCount++;
+        });
+
+        document.getElementById('postForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const dados = new URLSearchParams(formData).toString() + "&action=listar";
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'orcamento_controller', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        const data = JSON.parse(xhr.responseText);
+                        const materiaisTable = document.getElementById('materiais-table');
+                        materiaisTable.innerHTML = '';
+
+                        const materiaisCombinados = {};
+                        const postesCombinados = {};
+
+                        data.data.forEach(item => {
+                            const agregarMateriais = (materiais, tamanhoParafuso) => {
+                                materiais.forEach(material => {
+                                    let nomeMaterial = material.nome_material;
+
+                                    // Verificar se é um parafuso e aplicar o tamanho correspondente
+                                    if (nomeMaterial.toLowerCase() === 'parafuso') {
+                                        nomeMaterial += ` Tamanho ${tamanhoParafuso}`;
+                                    }
+
+                                    if (materiaisCombinados[nomeMaterial]) {
+                                        materiaisCombinados[nomeMaterial].quantidade += material.quantidade;
+                                    } else {
+                                        materiaisCombinados[nomeMaterial] = {
+                                            nome_material: nomeMaterial,
+                                            quantidade: material.quantidade
+                                        };
+                                    }
+                                });
+                            };
+
+                            // Agregar materiais com o tamanho do parafuso correspondente
+                            agregarMateriais(item.materiais_estrutura1, item.parafuso_nivel_1);
+                            agregarMateriais(item.materiais_estrutura2, item.parafuso_nivel_2);
+
+                            const tipoPoste = item.tipo_poste;
+                            if (postesCombinados[tipoPoste]) {
+                                postesCombinados[tipoPoste].quantidade += 1;
+                            } else {
+                                postesCombinados[tipoPoste] = {
+                                    tipo_poste: tipoPoste,
+                                    quantidade: 1
                                 };
                             }
                         });
-                    };
 
-                    // Agrega materiais de estrutura 1 e estrutura 2
-                    agregarMateriais(item.materiais_estrutura1);
-                    agregarMateriais(item.materiais_estrutura2);
+                        // Adicionar materiais à tabela
+                        Object.values(materiaisCombinados).forEach(material => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+        <td>${material.nome_material}</td>
+        <td>${material.quantidade}</td>
+        `;
+                            materiaisTable.appendChild(row);
+                        });
 
-                    // Agrega o poste
-                    const tipoPoste = item.tipo_poste; // Obtém o tipo do poste
-                    if (postesCombinados[tipoPoste]) {
-                        // Se o poste já existe, soma
-                        postesCombinados[tipoPoste].quantidade +=
-                            1; // Soma a quantidade de postes
+                        // Adicionar postes à tabela
+                        Object.values(postesCombinados).forEach(poste => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+        <td>${poste.tipo_poste}</td>
+        <td>${poste.quantidade}</td>
+        `;
+                            materiaisTable.appendChild(row);
+                        });
                     } else {
-                        // Caso contrário, cria uma nova entrada
-                        postesCombinados[tipoPoste] = {
-                            tipo_poste: tipoPoste,
-                            quantidade: 1
-                        };
+                        console.error('There was a problem with the request.');
                     }
-                });
 
-                // Popula a tabela com os materiais combinados
-                Object.values(materiaisCombinados).forEach(material => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                    <td>${material.nome_material}</td>
-                    <td>${material.quantidade}</td>
-                `;
-                    materiaisTable.appendChild(row);
-                });
-
-                // Popula a tabela com os postes combinados
-                Object.values(postesCombinados).forEach(poste => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                    <td>${poste.tipo_poste}</td>
-                    <td>${poste.quantidade}</td>
-                `;
-                    materiaisTable.appendChild(row);
-                });
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    });
-
-    document.getElementById('xlsx').addEventListener('click', function(e) {
-        e.preventDefault();
-
-        // Coletar os dados da tabela
-        const materiais = [];
-        const rows = document.querySelectorAll('#materiais-table tr');
-
-        rows.forEach(row => {
-            const nomeMaterial = row.cells[0].textContent.trim();
-            const quantidade = row.cells[1].textContent.trim();
-            if (nomeMaterial && quantidade) {
-                materiais.push({
-                    nome: nomeMaterial,
-                    quantidade: quantidade
-                });
-            }
+                }
+            };
+            xhr.send(dados);
         });
 
-        // Converter os dados para JSON
-        const dados = {
-            action: 'xlsx',
-            materiais: materiais
-        };
+        document.getElementById('xlsx').addEventListener('click', function(e) {
+            e.preventDefault();
 
-        console.log(dados); // Para depuração
+            const materiais = [];
+            const rows = document.querySelectorAll('#materiais-table tr');
 
-        fetch('orcamento_controller', {
-                method: 'POST',
-                body: JSON.stringify(dados),
-                headers: {
-                    'Content-Type': 'application/json'
+            rows.forEach(row => {
+                const nomeMaterial = row.cells[0].textContent.trim();
+                const quantidade = row.cells[1].textContent.trim();
+                if (nomeMaterial && quantidade) {
+                    materiais.push({
+                        nome: nomeMaterial,
+                        quantidade: quantidade
+                    });
                 }
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Processar a resposta do servidor aqui
-                console.log(data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    });
-
-
-
-    document.getElementById('posteSelect').addEventListener('change', function() {
-        var posteId = this.value;
-
-        if (posteId) {
-            var data = new URLSearchParams({
-                id: posteId,
-                action: 'buscarPostes'
             });
 
-            fetch('orcamento_controller', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: data.toString()
-                })
-                .then(response => {
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.postes.length > 0) {
-                        // Preenche os campos com os valores recebidos
-                        document.getElementById('parafuso_nivel_1').value = data.postes[0]
-                            .parafuso_nivel_1 || '';
-                        document.getElementById('parafuso_nivel_2').value = data.postes[0]
-                            .parafuso_nivel_2 || '';
-                    } else {
-                        // Limpa os campos se não houver dados
-                        document.getElementById('parafuso_nivel_1').value = '';
-                        document.getElementById('parafuso_nivel_2').value = '';
+            const params = new URLSearchParams();
+            params.append('action', 'xlsx');
+
+            materiais.forEach((material, index) => {
+                params.append(`materiais[${index}][nome]`, material.nome);
+                params.append(`materiais[${index}][quantidade]`, material.quantidade);
+            });
+
+            const url = 'orcamento_controller?' + params.toString();
+
+            window.open(url, '_blank');
+        });
+
+        document.getElementById('pdf').addEventListener('click', function(e) {
+            e.preventDefault();
+
+            const materiais = [];
+            const rows = document.querySelectorAll('#materiais-table tr');
+
+            rows.forEach(row => {
+                const nomeMaterial = row.cells[0].textContent.trim();
+                const quantidade = row.cells[1].textContent.trim();
+                if (nomeMaterial && quantidade) {
+                    materiais.push({
+                        nome: nomeMaterial,
+                        quantidade: quantidade
+                    });
+                }
+            });
+
+            const params = new URLSearchParams();
+            params.append('action', 'pdf');
+
+            materiais.forEach((material, index) => {
+                params.append(`materiais[${index}][nome]`, material.nome);
+                params.append(`materiais[${index}][quantidade]`, material.quantidade);
+            });
+
+            const url = 'orcamento_controller?' + params.toString();
+
+            window.open(url, '_blank');
+        });
+
+        document.getElementById('posteSelect').addEventListener('change', function() {
+            const posteId = this.value;
+
+            if (posteId) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'orcamento_controller', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            const data = JSON.parse(xhr.responseText);
+                            if (data.postes.length > 0) {
+                                document.getElementById('parafuso_nivel_1').value = data.postes[0].parafuso_nivel_1 || '';
+                                document.getElementById('parafuso_nivel_2').value = data.postes[0].parafuso_nivel_2 || '';
+                            } else {
+                                document.getElementById('parafuso_nivel_1').value = '';
+                                document.getElementById('parafuso_nivel_2').value = '';
+                            }
+                        } else {
+                            console.error('There was a problem with the request.');
+                        }
                     }
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-                });
-        } else {
-            // Limpa os campos se nenhuma opção estiver selecionada
-            document.getElementById('parafuso_nivel_1').value = '';
-            document.getElementById('parafuso_nivel_2').value = '';
-        }
+                };
+                xhr.send(`id=${posteId}&action=buscarPostes`);
+            } else {
+                document.getElementById('parafuso_nivel_1').value = '';
+                document.getElementById('parafuso_nivel_2').value = '';
+            }
+        });
     });
-
-
-});
 </script>

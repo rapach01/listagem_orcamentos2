@@ -53,8 +53,8 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                             <!-- Nível 1 Parafuso -->
                             <div class="mb-3">
-                                <label for="parafuso_nivel_1" class="form-label">Nível 1 Parafuso:</label>
-                                <select class="form-select" name="parafuso_nivel_1" id="parafuso_nivel_1">
+                                <label for="parafuso_nivel_1" class="form-label">Tamanho 1º Parafuso:</label>
+                                <select class="custom-select" name="parafuso_nivel_1" id="parafuso_nivel_1">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -65,8 +65,8 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                             <!-- Nível 2 Parafuso -->
                             <div class="mb-3">
-                                <label for="parafuso_nivel_2" class="form-label">Nível 2 Parafuso:</label>
-                                <select class="form-select" name="parafuso_nivel_2" id="parafuso_nivel_2">
+                                <label for="parafuso_nivel_2" class="form-label">Tamanho 2º Parafuso:</label>
+                                <select class="custom-select" name="parafuso_nivel_2" id="parafuso_nivel_2">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -77,11 +77,11 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                             <!-- Botões -->
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
-                                <button type="reset" class="btn btn-secondary btn-lg me-md-2">
-                                    <i class="fas fa-eraser" alt="Limpar"></i> <!-- Ícone de reset -->
+                                <button type="reset" class="btn btn-secondary btn-lg me-md-2" id="reset">
+                                    <i class="fas fa-eraser" title="Limpar"></i> 
                                 </button>
                                 <button type="submit" class="btn btn-dark btn-lg ms-md-2 ml-3">
-                                    <i class="fas fa-save" alt="Cadastrar Poste"></i> <!-- Ícone de cadastro -->
+                                    <i class="fas fa-save" title="Cadastrar Poste"></i> 
                                 </button>
                             </div>
                         </form>
@@ -97,11 +97,14 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </html>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function() {  
+        document.getElementById("reset").addEventListener("click", function() {
+            document.getElementById("id_poste").value = "";
+        });
         document.getElementById('cadastroForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Impede o envio padrão do formulário
+            event.preventDefault(); 
 
-            const formData = new FormData(this); // Coleta os dados do formulário
+            const formData = new FormData(this); 
 
             fetch('postes_controller', {
                     method: 'POST',
@@ -111,8 +114,7 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 .then(data => {
                     if (data.status === 'success') {
                         alert(data.message);
-                        loadPostes(); // Atualiza a lista de postes
-                        this.reset(); // Limpa o formulário
+                        loadPostes(); 
                     } else {
                         alert(data.message);
                     }
@@ -159,11 +161,11 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         listItem.innerHTML = `
                     ${postes.codigo}
                     <div>
-                        <button class="btn btn-sm btn-primary me-2" onclick="editPoste(${postes.id_poste})">
-                            <i class="fas fa-edit" alt="Editar"></i> 
+                        <button class="btn btn-sm btn-success me-2" onclick="editPoste(${postes.id_poste})">
+                            <i class="fas fa-edit" title="Editar"></i> 
                         </button>
                         <button class="btn btn-sm btn-danger" onclick="deletePoste(${postes.id_poste})">
-                            <i class="fas fa-times" alt="Excluir"></i> 
+                            <i class="fas fa-times" title="Excluir"></i> 
                         </button>
                     </div>
 

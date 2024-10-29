@@ -37,11 +37,11 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <input type="text" id="nome_material" name="nome_material" class="form-control" placeholder="Nome" required>
                             </div>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
-                                <button type="reset" class="btn btn-secondary btn-lg me-md-2">
-                                    <i class="fas fa-eraser" alt="Limpar"></i>
+                                <button type="reset" class="btn btn-secondary btn-lg me-md-2" id="reset">
+                                    <i class="fas fa-eraser" title="Limpar"></i>
                                 </button>
                                 <button type="submit" class="btn btn-dark btn-lg ms-md-2 ml-3">
-                                    <i class="fas fa-save" alt="Cadastrar material"></i>
+                                    <i class="fas fa-save" title="Cadastrar material"></i>
                                 </button>
                             </div>
                         </form>
@@ -55,6 +55,9 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("reset").addEventListener("click", function() {
+            document.getElementById("id_material").value = "";
+        });
         document.getElementById('cadastroForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Impede o envio padrão do formulário
 
@@ -68,8 +71,8 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 .then(data => {
                     if (data.status === 'success') {
                         alert(data.message);
-                        loadMateriais(); // Atualiza a lista de Materiais
-                        this.reset(); // Limpa o formulário
+                        loadMateriais(); 
+                        document.getElementById('reset').click();
                     } else {
                         alert(data.message);
                     }
@@ -116,8 +119,8 @@ $materiais = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         listItem.innerHTML = `
                     ${materiais.nome_material}
                     <div>
-                        <button class="btn btn-sm btn-primary me-2" onclick="editMaterial(${materiais.id_material})">  <i class="fas fa-edit" alt="Editar"></i></button>
-                        <button class="btn btn-sm btn-danger" onclick="deleteMaterial(${materiais.id_material})"><i class="fas fa-times" alt="Excluir"></i></button>
+                        <button class="btn btn-sm btn-success me-2" onclick="editMaterial(${materiais.id_material})">  <i class="fas fa-edit" title="Editar"></i></button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteMaterial(${materiais.id_material})"><i class="fas fa-times" title="Excluir"></i></button>
                     </div>
                 `;
                 materiaisList.appendChild(listItem);

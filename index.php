@@ -1,4 +1,5 @@
 <?php
+global $relativePath;
 // Definindo as rotas e os arquivos correspondentes
 $routes = [
     '/' => 'estrutura.php',
@@ -25,16 +26,15 @@ $basePath = '/listagem_orcamentos2';
 // Remove o caminho base da URL para lidar com as rotas corretamente
 $relativePath = str_replace($basePath, '', $path);
 
-// Verifica se o caminho relativo está vazio (caso seja a raiz)
+// Verifica se o caminho relativo está vazio 
 if (empty($relativePath) || $relativePath === '/') {
     $relativePath = '/';
 }
 
-// Divide a URL em partes e pega o último segmento (ex.: estrutura)
+// Divide a URL em partes e pega o último segmento
 $segments = explode('/', trim($relativePath, '/'));
 $lastSegment = '/' . end($segments);
 
-// Inicializa uma variável para verificar se a rota é válida
 $routeFound = false;
 
 // Verifica se a rota existe no array de rotas (views)
@@ -50,9 +50,9 @@ if (array_key_exists($lastSegment, $routes)) {
 // Verifica se a rota existe no array de rotas para controladores
 if (array_key_exists($lastSegment, $controllerRoutes)) {
     require_once __DIR__ . '/vendor/autoload.php'; 
-    include 'enviroments/database.php'; // Inclusão do banco de dados, se necessário
+    include 'enviroments/database.php'; 
     include 'controller/' . $controllerRoutes[$lastSegment];
-    $routeFound = true; // Rota de controlador encontrada
+    $routeFound = true; 
 }
 
 // Se a rota não existir, mostra uma página 404 ou redireciona para home
